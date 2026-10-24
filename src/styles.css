@@ -5,20 +5,14 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Opportunity313 design system — Motor City racing theme.
+ * Turbo Red #FF554B, Electric Blue #3478F6, Victory Yellow #FFE05D,
+ * Asphalt Black #17191F, Warm Cream #FFF9ED.
  */
 
 @theme inline {
+  --font-display: "Archivo", "Arial Black", sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -46,6 +40,15 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
+  --color-turbo: var(--turbo);
+  --color-turbo-soft: var(--turbo-soft);
+  --color-electric: var(--electric);
+  --color-electric-soft: var(--electric-soft);
+  --color-victory: var(--victory);
+  --color-victory-soft: var(--victory-soft);
+  --color-asphalt: var(--asphalt);
+  --color-cream: var(--cream);
+  --color-success: var(--success);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -59,86 +62,152 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --shadow-pop: var(--shadow-pop-v);
+  --shadow-card: var(--shadow-card-v);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
-}
+  --radius: 1rem;
+  --turbo: oklch(0.68 0.19 28);
+  --turbo-soft: oklch(0.93 0.045 28);
+  --electric: oklch(0.6 0.19 258);
+  --electric-soft: oklch(0.93 0.04 258);
+  --victory: oklch(0.9 0.15 96);
+  --victory-soft: oklch(0.96 0.06 96);
+  --asphalt: oklch(0.21 0.012 270);
+  --cream: oklch(0.985 0.018 85);
+  --success: oklch(0.62 0.15 150);
 
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: var(--cream);
+  --foreground: var(--asphalt);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--asphalt);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--asphalt);
+  --primary: var(--turbo);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--electric);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.955 0.015 85);
+  --muted-foreground: oklch(0.47 0.015 270);
+  --accent: var(--victory);
+  --accent-foreground: var(--asphalt);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9 0.02 85);
+  --input: oklch(0.88 0.02 85);
+  --ring: var(--electric);
+  --chart-1: var(--turbo);
+  --chart-2: var(--electric);
+  --chart-3: var(--victory);
+  --chart-4: var(--asphalt);
+  --chart-5: var(--success);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: var(--asphalt);
+  --sidebar-primary: var(--turbo);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--asphalt);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--electric);
+
+  --shadow-pop-v: 0 4px 0 0 var(--asphalt);
+  --shadow-card-v: 0 10px 30px -14px color-mix(in oklab, var(--asphalt) 35%, transparent);
+  --checker: repeating-conic-gradient(var(--asphalt) 0% 25%, oklch(1 0 0) 0% 50%);
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
   }
-
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
   }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+}
+
+/* Bold italic racing headline */
+@utility headline {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+}
+
+@utility checker-strip {
+  background: var(--checker);
+  background-size: 16px 16px;
+}
+
+@utility checker-fade {
+  background: var(--checker);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(90deg, transparent, black 40%, black 60%, transparent);
+}
+
+@utility road {
+  background-color: var(--asphalt);
+  background-image: repeating-linear-gradient(90deg, var(--victory) 0 28px, transparent 28px 56px);
+  background-size: 100% 4px;
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+}
+
+@utility road-move {
+  animation: road-move 1.2s linear infinite;
+}
+
+@utility card-lift {
+  transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s;
+  &:hover {
+    transform: translateY(-4px) rotate(-0.3deg);
+    box-shadow: 0 18px 40px -18px color-mix(in oklab, var(--asphalt) 45%, transparent);
+  }
+}
+
+@utility drive-in {
+  animation: drive-in 0.9s cubic-bezier(.2,.9,.25,1.1) both;
+}
+
+@utility rise-in {
+  animation: rise-in 0.6s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@utility idle-bob {
+  animation: idle-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes road-move {
+  from { background-position-x: 0; }
+  to { background-position-x: -56px; }
+}
+@keyframes drive-in {
+  0% { transform: translateX(-60vw) rotate(-4deg); opacity: 0; }
+  70% { transform: translateX(10px) rotate(1deg); opacity: 1; }
+  100% { transform: translateX(0) rotate(0); }
+}
+@keyframes rise-in {
+  from { transform: translateY(18px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes idle-bob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-6px) rotate(1deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
