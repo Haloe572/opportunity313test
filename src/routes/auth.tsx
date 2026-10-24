@@ -53,7 +53,7 @@ function AuthPage() {
           : null
       : null;
 
-  function friendly(err: { message: string; code?: string; name?: string }) {
+  function friendly(err: { message: string; code?: string | undefined; name?: string | undefined }) {
     if (err.code === "weak_password" || /weak|easy to guess/i.test(err.message))
       return "That password is too common. Try something longer and unique, like a short phrase with a number.";
     if (err.code === "user_already_exists" || /already registered/i.test(err.message))
