@@ -14,16 +14,217 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      opportunities: {
+        Row: {
+          application_status: string
+          category: string
+          created_at: string
+          deadline: string | null
+          description: string
+          education_levels: string[]
+          eligible_areas: string[]
+          id: string
+          image_url: string | null
+          is_placeholder: boolean
+          last_verified: string | null
+          max_age: number | null
+          min_age: number | null
+          notes: string | null
+          official_url: string | null
+          organization: string
+          prep_tips: string | null
+          published: boolean
+          tags: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          application_status?: string
+          category?: string
+          created_at?: string
+          deadline?: string | null
+          description?: string
+          education_levels?: string[]
+          eligible_areas?: string[]
+          id?: string
+          image_url?: string | null
+          is_placeholder?: boolean
+          last_verified?: string | null
+          max_age?: number | null
+          min_age?: number | null
+          notes?: string | null
+          official_url?: string | null
+          organization?: string
+          prep_tips?: string | null
+          published?: boolean
+          tags?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          application_status?: string
+          category?: string
+          created_at?: string
+          deadline?: string | null
+          description?: string
+          education_levels?: string[]
+          eligible_areas?: string[]
+          id?: string
+          image_url?: string | null
+          is_placeholder?: boolean
+          last_verified?: string | null
+          max_age?: number | null
+          min_age?: number | null
+          notes?: string | null
+          official_url?: string | null
+          organization?: string
+          prep_tips?: string | null
+          published?: boolean
+          tags?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      opportunity_views: {
+        Row: {
+          opportunity_id: string
+          user_id: string
+          viewed_at: string
+        }
+        Insert: {
+          opportunity_id: string
+          user_id: string
+          viewed_at?: string
+        }
+        Update: {
+          opportunity_id?: string
+          user_id?: string
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "opportunity_views_opportunity_id_fkey"
+            columns: ["opportunity_id"]
+            isOneToOne: false
+            referencedRelation: "opportunities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      saved_opportunities: {
+        Row: {
+          checklist: Json
+          created_at: string
+          id: string
+          opportunity_id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          checklist?: Json
+          created_at?: string
+          id?: string
+          opportunity_id: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          checklist?: Json
+          created_at?: string
+          id?: string
+          opportunity_id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_opportunities_opportunity_id_fkey"
+            columns: ["opportunity_id"]
+            isOneToOne: false
+            referencedRelation: "opportunities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      student_profiles: {
+        Row: {
+          age: number | null
+          city: string | null
+          created_at: string
+          display_name: string | null
+          education_level: string | null
+          goals: string[]
+          goals_note: string | null
+          interests: string[]
+          opportunity_types: string[]
+          updated_at: string
+          user_id: string
+          zip: string | null
+        }
+        Insert: {
+          age?: number | null
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          education_level?: string | null
+          goals?: string[]
+          goals_note?: string | null
+          interests?: string[]
+          opportunity_types?: string[]
+          updated_at?: string
+          user_id: string
+          zip?: string | null
+        }
+        Update: {
+          age?: number | null
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          education_level?: string | null
+          goals?: string[]
+          goals_note?: string | null
+          interests?: string[]
+          opportunity_types?: string[]
+          updated_at?: string
+          user_id?: string
+          zip?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +351,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
