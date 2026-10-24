@@ -22,7 +22,7 @@ export const Route = createFileRoute("/matches")({
   head: () => ({
     meta: [
       { title: "Your Matches — Opportunity313" },
-      { name: "description", content: "Scholarships, grants, internships, jobs and training matched to your profile." },
+      { name: "description", content: "Scholarships, internships, jobs and training matched to your profile." },
       { property: "og:title", content: "Your Matches — Opportunity313" },
       { property: "og:description", content: "Opportunities that fit your interests and goals." },
     ],

@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Opportunity313 — Your Future. Full Throttle." },
-      { name: "description", content: "Detroit students ages 14–24: discover scholarships, grants, internships, jobs and training matched to you, with a clear plan to get there." },
+      { name: "description", content: "Detroit students ages 14–24: discover scholarships, internships, jobs and training matched to you, with a clear plan to get there." },
       { property: "og:title", content: "Opportunity313 — Your Future. Full Throttle." },
       { property: "og:description", content: "Personalized opportunities and a race plan for Detroit students." },
     ],
