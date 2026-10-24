@@ -7,7 +7,6 @@ export const CATEGORIES: Record<
   { label: string; plural: string; blurb: string; icon: LucideIcon; tone: "turbo" | "electric" | "victory" | "asphalt" }
 > = {
   scholarship: { label: "Scholarship", plural: "Scholarships", blurb: "Fund your future", icon: GraduationCap, tone: "turbo" },
-  grant: { label: "Grant", plural: "Grants", blurb: "Money for big ideas", icon: HandCoins, tone: "victory" },
   internship: { label: "Internship", plural: "Internships", blurb: "Gain experience", icon: Briefcase, tone: "electric" },
   job: { label: "Job", plural: "Jobs", blurb: "Explore careers", icon: Users, tone: "victory" },
   training: { label: "Training", plural: "Training", blurb: "Build new skills", icon: Wrench, tone: "asphalt" },
