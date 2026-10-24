@@ -125,11 +125,17 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
-  h1, h2, h3, h4 {
+  h1, h2 {
     font-family: var(--font-display);
     font-weight: 900;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
   }
+  h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  body { -webkit-font-smoothing: antialiased; line-height: 1.6; }
 }
 
 @utility font-display {
@@ -143,8 +149,9 @@
   font-weight: 900;
   font-style: italic;
   text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 0.92;
+  letter-spacing: -0.01em;
+  word-spacing: 0.12em;
+  line-height: 0.95;
 }
 
 @utility checker-strip {
