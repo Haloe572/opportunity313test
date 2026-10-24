@@ -8,3 +8,9 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Architecture rules
+- Matching is deterministic in `src/lib/matching.ts` (tested); AI never selects or invents opportunities — it only explains stored rows.
+- AI coach runs server-side in `src/lib/ai.functions.ts` via Groq using the `GROQ_API_KEY` secret; never call Groq from the browser.
+- Admin access is enforced by `has_role(uid,'admin')` in RLS; the first account ever created is auto-granted admin by a trigger.
+- Student-only pages wrap content in `RequireAuth` (client session); public pages read published opportunities via route loaders.
