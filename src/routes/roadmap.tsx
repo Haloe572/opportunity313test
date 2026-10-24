@@ -40,8 +40,8 @@ function Roadmap() {
   const { saved, loading } = useSaved();
   if (isLoading || loading) return <Loading />;
 
-  const anyApplied = saved.some((s) => (s.checklist as Record<string, boolean>).apply);
-  const allDone = saved.some((s) => (s.checklist as Record<string, boolean>).follow_up);
+  const anyApplied = saved.some((s) => (s.checklist as Record<string, boolean>)['apply']);
+  const allDone = saved.some((s) => (s.checklist as Record<string, boolean>)['follow_up']);
   const milestones = [
     { title: "Build your profile", done: profileCompletion(profile) >= 70, to: "/onboarding" as const },
     { title: "Explore opportunities", done: saved.length > 0, to: "/matches" as const },
@@ -52,7 +52,7 @@ function Roadmap() {
 
   async function toggleStep(id: string, checklist: Record<string, boolean>, key: string) {
     const next = { ...checklist, [key]: !checklist[key] };
-    await supabase.from("saved_opportunities").update({ checklist: next, status: next.apply ? "applied" : "saved" }).eq("id", id);
+    await supabase.from("saved_opportunities").update({ checklist: next, status: next['apply'] ? "applied" : "saved" }).eq("id", id);
     qc.invalidateQueries({ queryKey: ["saved", user!.id] });
   }
 

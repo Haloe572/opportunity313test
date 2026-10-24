@@ -24,7 +24,7 @@ export function ageLabel(o: Pick<Opportunity, "min_age" | "max_age">) {
 export function OpportunityCard({
   o, saved, onToggleSave, reasons, index = 0,
 }: {
-  o: Opportunity; saved?: boolean; onToggleSave?: () => void; reasons?: string[]; index?: number;
+  o: Opportunity; saved?: boolean; onToggleSave?: () => void; reasons?: string[] | undefined; index?: number;
 }) {
   const m = categoryMeta(o.category);
   const Icon = m.icon;

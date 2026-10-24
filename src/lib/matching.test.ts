@@ -31,6 +31,6 @@ describe("matching", () => {
       { ...base, id: "job", category: "job" },
       { ...base, id: "sch", tags: ["technology"] },
     ]);
-    expect(ranked[0].opportunity.id).toBe("sch");
+    expect(ranked[0]?.opportunity.id).toBe("sch");
   });
 });

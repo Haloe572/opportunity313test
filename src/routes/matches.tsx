@@ -78,7 +78,7 @@ function Matches() {
         <div className="flex flex-1 gap-2 overflow-x-auto pb-1">
           {["all", ...CATEGORY_KEYS].map((k) => (
             <button key={k} onClick={() => setCat(k)} className={cn("whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-colors", cat === k ? "bg-asphalt text-cream" : "bg-muted hover:bg-border")}>
-              {k === "all" ? "All" : CATEGORIES[k].plural}
+              {k === "all" ? "All" : CATEGORIES[k as keyof typeof CATEGORIES].plural}
             </button>
           ))}
         </div>
