@@ -44,18 +44,59 @@ function AuthPage() {
     if (user) navigate({ href: safeNext(next) });
   }, [user, next, navigate]);
 
+  const pwProblem =
+    mode === "up" && password.length > 0
+      ? password.length < 8
+        ? "Use at least 8 characters."
+        : !/[0-9]/.test(password) || !/[a-zA-Z]/.test(password)
+          ? "Mix letters and at least one number."
+          : null
+      : null;
+
+  function friendly(err: { message: string; code?: string | undefined; name?: string | undefined }) {
+    if (err.code === "weak_password" || /weak|easy to guess/i.test(err.message))
+      return "That password is too common. Try something longer and unique, like a short phrase with a number.";
+    if (err.code === "user_already_exists" || /already registered/i.test(err.message))
+      return "An account with this email already exists. Sign in instead (or use Continue with Lovable/Google if that's how you joined).";
+    if (err.code === "invalid_credentials") return "Wrong email or password.";
+    if (err.code === "email_not_confirmed") return "Please confirm your email first — check your inbox.";
+    if (err.name === "AuthRetryableFetchError" || /load failed|failed to fetch|network/i.test(err.message))
+      return "Couldn't reach the server. Check your internet connection and try again.";
+    return err.message;
+  }
+
+  async function withRetry<T extends { error: { name?: string; message: string } | null }>(fn: () => Promise<T>): Promise<T> {
+    const r = await fn();
+    if (r.error && (r.error.name === "AuthRetryableFetchError" || /load failed|failed to fetch/i.test(r.error.message))) {
+      await new Promise((res) => setTimeout(res, 800));
+      return fn();
+    }
+    return r;
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (pwProblem) { toast.error(pwProblem); return; }
     setBusy(true);
-    if (mode === "up") {
-      const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin + "/onboarding" } });
-      if (error) toast.error(error.message);
-      else toast.success("Check your email to confirm your account!");
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) toast.error(error.message);
+    try {
+      if (mode === "up") {
+        const { data, error } = await withRetry(() =>
+          supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin + "/onboarding" } }),
+        );
+        if (error) toast.error(friendly(error));
+        else if (data.user && data.user.identities?.length === 0)
+          toast.error(friendly({ message: "already registered", code: "user_already_exists" }));
+        else if (data.session) toast.success("Account created! 🏁");
+        else toast.success("Account created! Check your email to confirm, then sign in.");
+      } else {
+        const { error } = await withRetry(() => supabase.auth.signInWithPassword({ email, password }));
+        if (error) toast.error(friendly(error));
+      }
+    } catch (err) {
+      toast.error(friendly(err instanceof Error ? err : { message: String(err) }));
+    } finally {
+      setBusy(false);
     }
-    setBusy(false);
   }
 
   async function oauth(p: "google" | "lovable") {
@@ -86,8 +127,16 @@ function AuthPage() {
           <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground"><div className="h-px flex-1 bg-border" />or<div className="h-px flex-1 bg-border" /></div>
           <form onSubmit={submit} className="space-y-3">
             <div><Label htmlFor="email">Email</Label><Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 rounded-xl" /></div>
-            <div><Label htmlFor="pw">Password</Label><Input id="pw" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 rounded-xl" /></div>
-            <Button type="submit" variant="race" className="w-full" size="lg" disabled={busy}>{mode === "up" ? "Create account" : "Sign in"}</Button>
+            <div>
+              <Label htmlFor="pw">Password</Label>
+              <Input id="pw" type="password" required minLength={mode === "up" ? 8 : 1} autoComplete={mode === "up" ? "new-password" : "current-password"} value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 rounded-xl" />
+              {mode === "up" && (
+                <p className={`mt-1 text-xs ${pwProblem ? "text-destructive" : "text-muted-foreground"}`}>
+                  {pwProblem ?? "At least 8 characters with a number. Avoid common words like \"Monday\" or \"password\"."}
+                </p>
+              )}
+            </div>
+            <Button type="submit" variant="race" className="w-full" size="lg" disabled={busy}>{busy ? "Working…" : mode === "up" ? "Create account" : "Sign in"}</Button>
           </form>
           <button className="mt-4 w-full text-center text-sm text-secondary hover:underline" onClick={() => setMode(mode === "up" ? "in" : "up")}>
             {mode === "up" ? "Already have an account? Sign in" : "New here? Create an account"}
