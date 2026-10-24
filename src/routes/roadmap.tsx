@@ -70,7 +70,7 @@ function Roadmap() {
 
   const nodeStyle = (i: number) =>
     cn("flex h-12 w-12 items-center justify-center rounded-full border-4 border-background font-display text-xl shadow-pop transition-transform",
-      milestones[i].done ? "bg-success text-primary-foreground" : i === current ? "bg-victory text-asphalt scale-110 ring-4 ring-victory/40" : "bg-asphalt text-primary-foreground");
+      milestones[i]!.done ? "bg-success text-primary-foreground" : i === current ? "bg-victory text-asphalt scale-110 ring-4 ring-victory/40" : "bg-asphalt text-primary-foreground");
 
   return (
     <div>
@@ -92,7 +92,7 @@ function Roadmap() {
         {/* "You are here" car */}
         <div
           className="absolute z-20 -translate-x-1/2 -translate-y-full"
-          style={{ left: `${NODE_POS[current].x}%`, top: `${NODE_POS[current].y}%` }}
+          style={{ left: `${NODE_POS[current]!.x}%`, top: `${NODE_POS[current]!.y}%` }}
         >
           <div className="flex flex-col items-center">
             <span className="mb-1 whitespace-nowrap rounded-full bg-asphalt px-3 py-1 font-display text-[10px] uppercase tracking-widest text-victory shadow-pop">You are here!</span>
@@ -100,7 +100,7 @@ function Roadmap() {
           </div>
         </div>
         {milestones.map((m, i) => (
-          <div key={m.title} className="absolute z-10 -translate-x-1/2 -translate-y-1/2" style={{ left: `${NODE_POS[i].x}%`, top: `${NODE_POS[i].y}%` }}>
+          <div key={m.title} className="absolute z-10 -translate-x-1/2 -translate-y-1/2" style={{ left: `${NODE_POS[i]!.x}%`, top: `${NODE_POS[i]!.y}%` }}>
             <div className={nodeStyle(i)}>{m.done ? <Check className="h-6 w-6" /> : i + 1}</div>
           </div>
         ))}
