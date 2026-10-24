@@ -28,11 +28,11 @@ export interface MatchResult {
 }
 
 const GOAL_CATEGORY: Record<string, string[]> = {
-  pay_for_college: ["scholarship", "grant"],
+  pay_for_college: ["scholarship"],
   first_job: ["job", "internship"],
   experience: ["internship", "job", "program"],
   learn_skill: ["training", "program"],
-  start_business: ["grant", "program"],
+  start_business: ["program"],
   explore: ["internship", "program", "training"],
 };
 

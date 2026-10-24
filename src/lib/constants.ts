@@ -1,6 +1,6 @@
-import { Briefcase, GraduationCap, HandCoins, Users, Wrench, Sparkles, type LucideIcon } from "lucide-react";
+import { Briefcase, GraduationCap, Users, Wrench, Sparkles, type LucideIcon } from "lucide-react";
 
-export type CategoryKey = "scholarship" | "grant" | "internship" | "job" | "training" | "program";
+export type CategoryKey = "scholarship" | "internship" | "job" | "training" | "program";
 
 export const CATEGORIES: Record<
   CategoryKey,
