@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -108,7 +108,7 @@ function AuthPage() {
     <div className="grid min-h-screen md:grid-cols-2">
       <div className="relative hidden flex-col justify-between overflow-hidden bg-asphalt p-10 text-cream md:flex">
         <div aria-hidden className="checker-strip absolute -right-8 top-0 h-full w-20 rotate-3 opacity-25" />
-        <span className="headline text-2xl normal-case">Opportunity<span className="text-primary">313</span></span>
+        <Link to="/" className="headline relative z-10 w-fit text-2xl normal-case transition-opacity hover:opacity-80">Opportunity<span className="text-primary">313</span></Link>
         <img src={mascot} alt="" width={1024} height={768} className="drive-in w-4/5" />
         <div>
           <h2 className="headline text-5xl">Let's get you<br /><span className="text-victory">on track.</span></h2>

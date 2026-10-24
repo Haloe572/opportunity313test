@@ -58,10 +58,8 @@ function Index() {
                   <Button asChild variant="outline" size="xl"><Link to="/matches">Browse</Link></Button>
                 </div>
               </div>
-              <div className="relative hidden h-full md:block">
-                <img src={mascot} alt="Opportunity313 race car mascot" width={1024} height={768} className="drive-in absolute bottom-0 right-0 w-[95%] drop-shadow-2xl" />
-              </div>
             </div>
+            <img src={mascot} alt="Opportunity313 race car mascot" width={1024} height={768} className="drive-in pointer-events-none absolute bottom-6 left-[44%] hidden w-[34%] max-w-[400px] drop-shadow-2xl md:block lg:left-[46%]" />
             <div className="road road-move relative h-8" />
           </div>
         </div>
